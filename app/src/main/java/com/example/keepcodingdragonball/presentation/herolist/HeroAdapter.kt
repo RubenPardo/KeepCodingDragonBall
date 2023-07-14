@@ -10,13 +10,16 @@ import com.example.keepcodingdragonball.databinding.HeroItemBinding
 import com.example.keepcodingdragonball.domain.model.Hero
 
 class HeroAdapter(
-    private val onItemClick: ((Hero) -> Unit),
-    private val onDeleteItem: ((position:Int) -> Unit),
+    private val heroAdapterInterface: HeroAdapterInterface
 ):RecyclerView.Adapter<HeroAdapter.ViewHolder>() {
 
     lateinit var binding: HeroItemBinding
     private var mList: MutableList<Hero> = mutableListOf()
 
+    interface HeroAdapterInterface{
+        fun onItemClick(hero:Hero)
+        fun onDeleteItem(position: Int)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -34,19 +37,14 @@ class HeroAdapter(
         val hero = mList[position]
 
         // sets the text to the textview from our itemHolder class
-        holder.textView.text = "${hero.name} ${getParImpar(position)}"
+        holder.textView.text = hero.name
         holder.root.setOnClickListener{
-            onItemClick(hero)
+           heroAdapterInterface.onItemClick(hero)
         }
         holder.ivDelete.setOnClickListener {
-            onDeleteItem(position)
+            heroAdapterInterface.onDeleteItem(position)
         }
 
-    }
-
-    private fun getParImpar(position: Int): String {
-        if(position == mList.size-1) return "Soy el ultimo"
-        return if(position%2 == 0) "Soy par" else "Soy impar"
     }
 
     override fun getItemCount(): Int {

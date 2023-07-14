@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.keepcodingdragonball.databinding.ActivityHeroListBinding
 import com.example.keepcodingdragonball.domain.model.Hero
 
-class HeroListActivity : AppCompatActivity() {
+class HeroListActivity : AppCompatActivity(), HeroAdapter.HeroAdapterInterface {
 
 
     private lateinit var binding: ActivityHeroListBinding
@@ -32,19 +32,20 @@ class HeroListActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         binding.rvHeroes.layoutManager = LinearLayoutManager(this)
-        adapter = HeroAdapter(this::onHeroClick, this::onHeroDelete)
+        adapter = HeroAdapter(this)
         binding.rvHeroes.adapter = adapter
     }
 
-    private fun onHeroDelete(position: Int) {
+    override fun onItemClick(hero: Hero) {
+        Toast.makeText(this,"Se pulso el heroe: ${hero.name}",Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDeleteItem(position: Int) {
         // se puede hacer directamente desde el adapter pero de esta forma si luego tenemos que
         // borrar en bd ya tendriamos el paso hecho
         adapter.removeHeroAt(position)
     }
 
-    private fun onHeroClick(hero: Hero) {
-        Toast.makeText(this,"Se pulso el heroe: ${hero.name}",Toast.LENGTH_LONG).show()
-    }
 
     private fun setHeroListToAdapter(heroes:List<Hero>) {
         adapter.setHeroList(heroes)
@@ -81,4 +82,6 @@ class HeroListActivity : AppCompatActivity() {
             adapter.addHero()
         }
     }
+
+
 }
