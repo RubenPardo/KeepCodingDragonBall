@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.keepcodingdragonball.domain.model.Hero
+import com.example.keepcodingdragonball.domain.usecases.GetAllHeroresUseCase
 import com.example.keepcodingdragonball.presentation.LoginUiState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -16,21 +18,18 @@ class HeroListViewModel : ViewModel() {
 
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             getHeroes()
         }
     }
 
     private suspend fun getHeroes() {
 
-        _uiState.value = HeroListUiState.Loading
+        _uiState.postValue(HeroListUiState.Loading)
 
-        delay(1000)
-        val heroes = List<Hero>(16){
-            Hero("Heroe $it")
-        }
+        val heroes = GetAllHeroresUseCase().invoke()
 
-        _uiState.value = HeroListUiState.Loaded(heroes)
+        _uiState.postValue( HeroListUiState.Loaded(heroes))
 
     }
 

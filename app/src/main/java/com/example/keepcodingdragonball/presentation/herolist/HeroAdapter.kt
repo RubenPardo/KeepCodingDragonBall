@@ -64,7 +64,7 @@ class HeroAdapter(
     }
 
     fun addHero() {
-        mList.add(Hero("Heroe ${mList.size}"))
+        //mList.add(Hero("Heroe ${mList.size}"))
         notifyItemInserted(mList.size)
     }
 
