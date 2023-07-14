@@ -1,5 +1,6 @@
 package com.example.keepcodingdragonball.presentation
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.keepcodingdragonball.databinding.ActivityLoginBinding
+import com.example.keepcodingdragonball.presentation.herolist.HeroListActivity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -84,6 +86,7 @@ class MainActivity : AppCompatActivity() {
            LoginUiState.Logged -> {
                showLoading(false)
                makeToast("Logged successfully")
+               goToHeroList()
            }
 
            is LoginUiState.AlreadyLogged -> {
@@ -95,6 +98,10 @@ class MainActivity : AppCompatActivity() {
                }
            }
        }
+    }
+
+    private fun goToHeroList() {
+        startActivity(Intent(this,HeroListActivity::class.java))
     }
 
     private fun makeToast(message: String) {
