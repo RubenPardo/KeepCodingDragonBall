@@ -9,9 +9,14 @@ import com.example.keepcodingdragonball.R
 import com.example.keepcodingdragonball.databinding.HeroItemBinding
 import com.example.keepcodingdragonball.domain.model.Hero
 
-class HeroAdapter(private val mList: List<Hero>):RecyclerView.Adapter<HeroAdapter.ViewHolder>() {
+class HeroAdapter(
+    private val onItemClick: ((Hero) -> Unit),
+    private val onDeleteItem: ((position:Int) -> Unit),
+):RecyclerView.Adapter<HeroAdapter.ViewHolder>() {
 
     lateinit var binding: HeroItemBinding
+    private var mList: MutableList<Hero> = mutableListOf()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -20,7 +25,6 @@ class HeroAdapter(private val mList: List<Hero>):RecyclerView.Adapter<HeroAdapte
             parent,
             false
         )
-
 
         return ViewHolder(binding.root)
     }
@@ -31,11 +35,17 @@ class HeroAdapter(private val mList: List<Hero>):RecyclerView.Adapter<HeroAdapte
 
         // sets the text to the textview from our itemHolder class
         holder.textView.text = "${hero.name} ${getParImpar(position)}"
+        holder.root.setOnClickListener{
+            onItemClick(hero)
+        }
+        holder.ivDelete.setOnClickListener {
+            onDeleteItem(position)
+        }
 
     }
 
     private fun getParImpar(position: Int): String {
-        if(position == itemCount-1) return "Soy el ultimo"
+        if(position == mList.size-1) return "Soy el ultimo"
         return if(position%2 == 0) "Soy par" else "Soy impar"
     }
 
@@ -43,8 +53,26 @@ class HeroAdapter(private val mList: List<Hero>):RecyclerView.Adapter<HeroAdapte
         return mList.size
     }
 
+    fun setHeroList(heroes:List<Hero>){
+        mList = heroes.toMutableList()
+        notifyDataSetChanged()
+    }
+
+    fun removeHeroAt(position: Int) {
+        mList.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, mList.size);
+    }
+
+    fun addHero() {
+        mList.add(Hero("Heroe ${mList.size}"))
+        notifyItemInserted(mList.size)
+    }
+
     inner class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val textView: TextView = binding.tvTitle
+        val root = binding.root
+        val ivDelete = binding.ivBorrarItem
     }
 
 

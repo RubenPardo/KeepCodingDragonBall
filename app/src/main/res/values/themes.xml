@@ -4,6 +4,7 @@
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/orangeF44336</item>
         <item name="colorSecondary">@color/orangeFF9800</item>
+        <item name="colorAccent">@color/orangeFFC107</item>
     </style>
 
     <style name="Theme.KeepCodingDragonBall" parent="Base.Theme.KeepCodingDragonBall" />

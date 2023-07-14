@@ -3,7 +3,6 @@ package com.example.keepcodingdragonball.presentation.herolist
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +14,7 @@ class HeroListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHeroListBinding
     private val viewModel: HeroListViewModel by viewModels()
+    private lateinit var adapter : HeroAdapter
 
 
 
@@ -31,13 +31,23 @@ class HeroListActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        binding.rvHeroes.layoutManager = LinearLayoutManager(this@HeroListActivity)
+        binding.rvHeroes.layoutManager = LinearLayoutManager(this)
+        adapter = HeroAdapter(this::onHeroClick, this::onHeroDelete)
+        binding.rvHeroes.adapter = adapter
     }
 
-    private fun setAdapter(heroes:List<Hero>) {
-        with(binding){
-            rvHeroes.adapter = HeroAdapter(heroes)
-        }
+    private fun onHeroDelete(position: Int) {
+        // se puede hacer directamente desde el adapter pero de esta forma si luego tenemos que
+        // borrar en bd ya tendriamos el paso hecho
+        adapter.removeHeroAt(position)
+    }
+
+    private fun onHeroClick(hero: Hero) {
+        Toast.makeText(this,"Se pulso el heroe: ${hero.name}",Toast.LENGTH_LONG).show()
+    }
+
+    private fun setHeroListToAdapter(heroes:List<Hero>) {
+        adapter.setHeroList(heroes)
     }
 
 
@@ -50,7 +60,7 @@ class HeroListActivity : AppCompatActivity() {
         when(heroListUiState){
             is HeroListUiState.Error -> showError(heroListUiState.messageError)
             HeroListUiState.InitState -> {}
-            is HeroListUiState.Loaded -> setAdapter(heroListUiState.heroes)
+            is HeroListUiState.Loaded -> setHeroListToAdapter(heroListUiState.heroes)
             HeroListUiState.Loading -> { }
         }
     }
@@ -67,6 +77,8 @@ class HeroListActivity : AppCompatActivity() {
     }
 
     private fun setListeners() {
-
+        binding.floatingActionButton.setOnClickListener{
+            adapter.addHero()
+        }
     }
 }
