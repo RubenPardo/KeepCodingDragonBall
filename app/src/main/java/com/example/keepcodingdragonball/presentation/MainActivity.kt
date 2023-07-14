@@ -1,5 +1,6 @@
 package com.example.keepcodingdragonball.presentation
 
+import android.app.Application
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.keepcodingdragonball.data.datasources.SharedPreferencesServiceImpl
 import com.example.keepcodingdragonball.databinding.ActivityLoginBinding
 import com.example.keepcodingdragonball.presentation.herolist.HeroListActivity
 import kotlinx.coroutines.flow.collect
@@ -24,6 +26,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        SharedPreferencesServiceImpl.init(applicationContext)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -39,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getCredentials(this)
+        viewModel.getCredentials()
     }
 
     private fun setListeners() {
@@ -58,13 +62,12 @@ class MainActivity : AppCompatActivity() {
                     etNombre.text.toString(),
                     etPassword.text.toString(),
                     cbRememberPassword.isChecked,
-                    this@MainActivity
                 )
 
             }
 
             cbRememberPassword.setOnCheckedChangeListener { compoundButton, b ->
-                if(!b) viewModel.removeCredentials(this@MainActivity)
+                if(!b) viewModel.removeCredentials()
             }
         }
 

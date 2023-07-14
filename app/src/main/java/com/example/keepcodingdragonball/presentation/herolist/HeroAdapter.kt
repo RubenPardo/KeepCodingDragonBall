@@ -57,6 +57,7 @@ class HeroAdapter(
     }
 
     fun removeHeroAt(position: Int) {
+
         mList.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, mList.size);

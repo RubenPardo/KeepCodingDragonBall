@@ -6,31 +6,30 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.keepcodingdragonball.data.repositories.AuthRepository
-import com.example.keepcodingdragonball.data.repositories.AuthRepositorySharedPref
+import com.example.keepcodingdragonball.data.repositories.AuthRepositoryImpl
 import com.example.keepcodingdragonball.domain.model.LoginDataDO
 import com.example.keepcodingdragonball.domain.model.Response
 import com.example.keepcodingdragonball.domain.usecases.LoginUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
 
     private val _loginUiState = MutableLiveData<LoginUiState>(LoginUiState.InitState)
     val loginUiState: LiveData<LoginUiState> = _loginUiState
-    private var authRepository: AuthRepository = AuthRepositorySharedPref()
+    private var authRepository: AuthRepository = AuthRepositoryImpl()
 
 
 
-    fun login(name:String, password:String,saveCredentials:Boolean, context:Context){
-        viewModelScope.launch {
-            _loginUiState.value = (LoginUiState.Loading)
+    fun login(name:String, password:String,saveCredentials:Boolean){
+        viewModelScope.launch(Dispatchers.IO) {
+            _loginUiState.postValue((LoginUiState.Loading))
             delay(1000)
             val loginDataDO = LoginDataDO(name,password)
             if(checkCredentials(loginDataDO)){
-                if (LoginUseCase().invoke(loginDataDO,saveCredentials,context)){
-                    _loginUiState.value = LoginUiState.Logged
+                if (LoginUseCase().invoke(loginDataDO,saveCredentials)){
+                    _loginUiState.postValue(LoginUiState.Logged)
                 }else{
                     emitError("Unable to save credentials")
                 }
@@ -42,18 +41,17 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    fun removeCredentials(context:Context){
+    fun removeCredentials(){
         viewModelScope.launch {
-            authRepository.removeCredentials(context)
+            authRepository.removeCredentials()
         }
     }
 
-    fun getCredentials(context:Context){
+    fun getCredentials(){
         viewModelScope.launch {
 
             _loginUiState.value = (LoginUiState.Loading)
-            delay(1000)
-            when (val response = authRepository.getCredentials(context)){
+            when (val response = authRepository.getCredentials()){
                 is Response.Error -> emitError("Unable to get credentials")
                 is Response.Success -> {
                     response.data?.
@@ -71,7 +69,7 @@ class LoginViewModel : ViewModel() {
     }
 
     private fun emitError(s: String) {
-        _loginUiState.value = (LoginUiState.Error(s))
+        _loginUiState.postValue(LoginUiState.Error(s))
     }
 
     fun checkCredentials(loginDataDO: LoginDataDO): Boolean {

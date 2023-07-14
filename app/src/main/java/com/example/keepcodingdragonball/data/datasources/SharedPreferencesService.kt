@@ -1,40 +1,50 @@
 package com.example.keepcodingdragonball.data.datasources
 
+import android.app.Activity
 import android.content.Context
+import android.content.SharedPreferences
+
+
+
 
 
 interface SharedPreferencesService{
-    fun getPrefString(context: Context, prefName: String, defaultValue: String): String?
-    fun putPrefString(context: Context, prefName: String, value: String)
-    fun removePrefString(context: Context, prefName: String)
+    fun getPrefString(prefName: String, defaultValue: String): String?
+    fun putPrefString(prefName: String, value: String)
+    fun removePrefString(prefName: String)
 }
 
 class SharedPreferencesServiceImpl : SharedPreferencesService {
 
+
+    companion object{
+        @Volatile
+        var mSharedPref: SharedPreferences? = null
+        fun init(context: Context) {
+            mSharedPref = context.getSharedPreferences(context.packageName, Activity.MODE_PRIVATE)
+        }
+    }
+
     override fun getPrefString(
-        context: Context,
         prefName: String,
         defaultValue: String
     ): String? {
-        val sp = context.getSharedPreferences(prefName,Context.MODE_PRIVATE)
-        return sp.getString(prefName, defaultValue)
+        return mSharedPref!!.getString(prefName, defaultValue)
     }
 
     override fun putPrefString(
-        context: Context,
         prefName: String,
         value: String
     ) {
-        val sp = context.getSharedPreferences(prefName,Context.MODE_PRIVATE).edit()
+        val sp = mSharedPref!!.edit()
         sp.putString(prefName, value)
         sp.apply()
     }
 
     override fun removePrefString(
-        context: Context,
         prefName: String,
     ) {
-        val sp = context.getSharedPreferences(prefName,Context.MODE_PRIVATE).edit()
+        val sp = mSharedPref!!.edit()
         sp.remove(prefName)
         sp.apply()
     }

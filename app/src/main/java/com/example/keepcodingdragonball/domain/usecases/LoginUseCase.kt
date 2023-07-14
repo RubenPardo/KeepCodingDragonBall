@@ -2,33 +2,29 @@ package com.example.keepcodingdragonball.domain.usecases
 
 import android.content.Context
 import com.example.keepcodingdragonball.data.repositories.AuthRepository
-import com.example.keepcodingdragonball.data.repositories.AuthRepositorySharedPref
+import com.example.keepcodingdragonball.data.repositories.AuthRepositoryImpl
 import com.example.keepcodingdragonball.domain.model.LoginDataDO
 import com.example.keepcodingdragonball.domain.model.Response
 
 class LoginUseCase {
 
-    private val authRepository:AuthRepository = AuthRepositorySharedPref()
+    private val authRepository:AuthRepository = AuthRepositoryImpl()
 
     suspend operator fun invoke(
         loginDataDO: LoginDataDO,
         saveCredentials: Boolean,
-        context: Context
     ):Boolean{
         // make login ----------------
         // if(login) ---
-        return if(saveCredentials){
-            when (authRepository.saveCredentials(context, loginDataDO)){
-                is Response.Success ->{
-                    true
-                }
-                is Response.Error ->   {
-                    false
-                }
+        return when(val response = authRepository.makeLogin(loginDataDO)){
+            is Response.Error -> false
+            is Response.Success -> {
+                authRepository.saveToken(response.data)
+                authRepository.saveCredentials(loginDataDO)
+                return true
             }
-        }else{
-            true
         }
+
 
     }
 }
