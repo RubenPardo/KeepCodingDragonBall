@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.KeepCodingDragonBall" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/orangeF44336</item>
+        <item name="colorSecondary">@color/orangeFF9800</item>
+    </style>
+
+    <style name="Theme.KeepCodingDragonBall" parent="Base.Theme.KeepCodingDragonBall" />
+</resources>
