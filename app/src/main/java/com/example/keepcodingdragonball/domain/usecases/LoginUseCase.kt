@@ -20,7 +20,7 @@ class LoginUseCase {
             is Response.Error -> false
             is Response.Success -> {
                 authRepository.saveToken(response.data)
-                authRepository.saveCredentials(loginDataDO)
+                if(saveCredentials) authRepository.saveCredentials(loginDataDO)
                 return true
             }
         }

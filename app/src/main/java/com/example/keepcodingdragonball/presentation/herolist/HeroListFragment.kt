@@ -1,43 +1,58 @@
 package com.example.keepcodingdragonball.presentation.herolist
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.keepcodingdragonball.R
 import com.example.keepcodingdragonball.databinding.ActivityHeroListBinding
+import com.example.keepcodingdragonball.databinding.FragmentHeroListBinding
 import com.example.keepcodingdragonball.domain.model.Hero
+import com.example.keepcodingdragonball.presentation.login.LoginFragmentDirections
 
-class HeroListActivity : AppCompatActivity(), HeroAdapter.HeroAdapterInterface {
 
+class HeroListFragment : Fragment(), HeroAdapter.HeroAdapterInterface{
 
-    private lateinit var binding: ActivityHeroListBinding
+    private lateinit var binding: FragmentHeroListBinding
     private val viewModel: HeroListViewModel by viewModels()
     private lateinit var adapter : HeroAdapter
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityHeroListBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+        binding = FragmentHeroListBinding.inflate(layoutInflater)
 
         initRecyclerView()
         setObservers()
         setListeners()
 
+        return binding.root
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = HeroListFragment()
     }
 
     private fun initRecyclerView() {
-        binding.rvHeroes.layoutManager = LinearLayoutManager(this)
+        binding.rvHeroes.layoutManager = LinearLayoutManager(context)
         adapter = HeroAdapter(this)
         binding.rvHeroes.adapter = adapter
     }
 
     override fun onItemClick(hero: Hero) {
-        Toast.makeText(this,"Se pulso el heroe: ${hero.name}",Toast.LENGTH_LONG).show()
+        Toast.makeText(context,"Se pulso el heroe: ${hero.name}", Toast.LENGTH_LONG).show()
+        val directions = HeroListFragmentDirections.navigateToHeroDetails(hero)
+        findNavController().navigate(directions)
+
     }
 
     override fun onDeleteItem(position: Int) {
@@ -53,7 +68,7 @@ class HeroListActivity : AppCompatActivity(), HeroAdapter.HeroAdapterInterface {
 
 
     private fun setObservers() {
-        viewModel.uiState.observe(this, this::handleUiState)
+        viewModel.uiState.observe(this.viewLifecycleOwner, this::handleUiState)
     }
 
     private fun handleUiState(heroListUiState: HeroListUiState) {
@@ -74,7 +89,7 @@ class HeroListActivity : AppCompatActivity(), HeroAdapter.HeroAdapterInterface {
     }
 
     private fun showError(messageError: String) {
-        Toast.makeText(this,messageError,Toast.LENGTH_SHORT).show()
+        Toast.makeText(context,messageError, Toast.LENGTH_SHORT).show()
     }
 
     private fun setListeners() {
@@ -82,6 +97,4 @@ class HeroListActivity : AppCompatActivity(), HeroAdapter.HeroAdapterInterface {
             adapter.addHero()
         }
     }
-
-
 }

@@ -1,6 +1,5 @@
-package com.example.keepcodingdragonball.presentation
+package com.example.keepcodingdragonball.presentation.login
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -82,9 +81,9 @@ class LoginViewModel : ViewModel() {
 
 
 sealed class LoginUiState{
-    object InitState:LoginUiState()
-    object Loading:LoginUiState()
-    object Logged:LoginUiState()
-    class AlreadyLogged(val loginDataDO: LoginDataDO):LoginUiState()
-    class Error(val messageError:String):LoginUiState()
+    object InitState: LoginUiState()
+    object Loading: LoginUiState()
+    object Logged: LoginUiState()
+    class AlreadyLogged(val loginDataDO: LoginDataDO): LoginUiState()
+    class Error(val messageError:String): LoginUiState()
 }

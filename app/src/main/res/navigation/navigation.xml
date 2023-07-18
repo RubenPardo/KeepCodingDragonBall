@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/login">
+
+    <fragment
+        android:id="@+id/login"
+        android:name="com.example.keepcodingdragonball.presentation.login.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/navigate_to_hero_list"
+            app:destination="@id/hero_list" />
+    </fragment>
+    <fragment
+        android:id="@+id/hero_list"
+        android:name="com.example.keepcodingdragonball.presentation.herolist.HeroListFragment"
+        android:label="Hero List"
+        tools:layout="@layout/fragment_hero_list">
+        <action
+            android:id="@+id/navigate_to_hero_details"
+            app:destination="@id/hero_details" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/hero_details"
+        android:name="com.example.keepcodingdragonball.presentation.herodetails.HeroDetailsFragment"
+        android:label="Hero detail"
+        tools:layout="@layout/fragment_hero_details">
+        <argument
+            android:name="hero"
+            app:argType="com.example.keepcodingdragonball.domain.model.Hero" />
+    </fragment>
+
+</navigation>

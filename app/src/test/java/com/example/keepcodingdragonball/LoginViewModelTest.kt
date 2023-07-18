@@ -1,26 +1,15 @@
 package com.example.keepcodingdragonball
 
-import android.content.Context
-import androidx.lifecycle.Observer
-import com.example.keepcodingdragonball.data.repositories.AuthRepository
 import com.example.keepcodingdragonball.domain.model.LoginDataDO
-import com.example.keepcodingdragonball.domain.model.Response
-import com.example.keepcodingdragonball.presentation.LoginUiState
-import com.example.keepcodingdragonball.presentation.LoginViewModel
-import junit.framework.TestCase.assertEquals
+import com.example.keepcodingdragonball.presentation.login.LoginViewModel
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
-import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.Mockito.inOrder
-import org.mockito.Mockito.mock
 
 
 class LoginViewModelTest {
 
-    private lateinit var viewModel:LoginViewModel
+    private lateinit var viewModel: LoginViewModel
     //private lateinit var mockObserver: Observer<LoginUiState> ;
 
     /*@Before

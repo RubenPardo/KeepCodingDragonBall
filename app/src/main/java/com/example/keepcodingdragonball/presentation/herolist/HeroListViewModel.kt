@@ -6,9 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.keepcodingdragonball.domain.model.Hero
 import com.example.keepcodingdragonball.domain.usecases.GetAllHeroresUseCase
-import com.example.keepcodingdragonball.presentation.LoginUiState
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class HeroListViewModel : ViewModel() {
