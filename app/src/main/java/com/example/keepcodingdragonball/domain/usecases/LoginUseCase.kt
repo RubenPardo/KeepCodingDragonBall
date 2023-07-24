@@ -6,9 +6,8 @@ import com.example.keepcodingdragonball.data.repositories.AuthRepositoryImpl
 import com.example.keepcodingdragonball.domain.model.LoginDataDO
 import com.example.keepcodingdragonball.domain.model.Response
 
-class LoginUseCase {
+class LoginUseCase( private val authRepository:AuthRepository) {
 
-    private val authRepository:AuthRepository = AuthRepositoryImpl()
 
     suspend operator fun invoke(
         loginDataDO: LoginDataDO,

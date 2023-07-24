@@ -3,6 +3,7 @@ package com.example.keepcodingdragonball.data.repositories
 import android.content.Context
 import android.util.Log
 import com.example.keepcodingdragonball.data.datasources.AuthService
+import com.example.keepcodingdragonball.data.datasources.SharedPreferencesService
 import com.example.keepcodingdragonball.data.datasources.SharedPreferencesServiceImpl
 import com.example.keepcodingdragonball.domain.model.LoginDataDO
 import com.example.keepcodingdragonball.domain.model.Response
@@ -17,14 +18,17 @@ interface AuthRepository {
 }
 
 
-class AuthRepositoryImpl: AuthRepository{
+class AuthRepositoryImpl(
+    private val sharedPreferencesService: SharedPreferencesService,
+    private val authService: AuthService
+): AuthRepository{
 
     private val loginDataKEY = "LOGIN"
     private val tokenDataKEY = "TOKEN"
 
     override suspend fun saveCredentials( loginDataDO: LoginDataDO): Response<Boolean> {
         return try {
-            SharedPreferencesServiceImpl().putPrefString( loginDataKEY, loginDataDO.toJson())
+            sharedPreferencesService.putPrefString( loginDataKEY, loginDataDO.toJson())
             Response.Success(true)
         }catch (e:Exception){
             Response.Error(e.message)
@@ -33,7 +37,7 @@ class AuthRepositoryImpl: AuthRepository{
 
     override suspend fun makeLogin(loginDataDO: LoginDataDO): Response<String> {
 
-        val response = AuthService().login(loginDataDO)
+        val response = authService.login(loginDataDO)
        try {
            return when(response){
                is Response.Error -> Response.Error(response.message)
@@ -51,7 +55,7 @@ class AuthRepositoryImpl: AuthRepository{
 
     override suspend fun getCredentials(): Response<LoginDataDO?> {
         return try {
-            val loginDataStr = SharedPreferencesServiceImpl().getPrefString(loginDataKEY,"")
+            val loginDataStr = sharedPreferencesService.getPrefString(loginDataKEY,"")
             if(loginDataStr!=null && loginDataStr != ""){
                 Response.Success(LoginDataDO.fromJson(loginDataStr))
             }else{
@@ -63,18 +67,18 @@ class AuthRepositoryImpl: AuthRepository{
     }
 
     override suspend fun removeCredentials() {
-        SharedPreferencesServiceImpl().removePrefString(loginDataKEY)
+        sharedPreferencesService.removePrefString(loginDataKEY)
 
     }
 
     override suspend fun saveToken(token: String?) {
         Log.d("TOKEN",token.toString())
-        SharedPreferencesServiceImpl().putPrefString( tokenDataKEY, token!!)
+        sharedPreferencesService.putPrefString( tokenDataKEY, token!!)
     }
 
     override suspend fun getToken():Response<String?> {
         return try {
-            val token = SharedPreferencesServiceImpl().getPrefString(tokenDataKEY,"")
+            val token = sharedPreferencesService.getPrefString(tokenDataKEY,"")
             if(token!=null && token != ""){
                 Response.Success(token)
             }else{

@@ -5,11 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.keepcodingdragonball.domain.model.Hero
-import com.example.keepcodingdragonball.domain.usecases.GetAllHeroresUseCase
+import com.example.keepcodingdragonball.domain.usecases.GetAllHeroesUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HeroListViewModel : ViewModel() {
+class HeroListViewModel(
+    private val getAllHeroesUseCase: GetAllHeroesUseCase
+): ViewModel() {
 
     private val _uiState = MutableLiveData<HeroListUiState>(HeroListUiState.InitState)
     val uiState: LiveData<HeroListUiState> = _uiState
@@ -25,7 +27,7 @@ class HeroListViewModel : ViewModel() {
 
         _uiState.postValue(HeroListUiState.Loading)
 
-        val heroes = GetAllHeroresUseCase().invoke()
+        val heroes = getAllHeroesUseCase.invoke()
 
         _uiState.postValue( HeroListUiState.Loaded(heroes))
 

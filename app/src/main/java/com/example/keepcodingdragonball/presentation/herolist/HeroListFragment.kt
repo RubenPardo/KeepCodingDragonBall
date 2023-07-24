@@ -15,12 +15,13 @@ import com.example.keepcodingdragonball.databinding.ActivityHeroListBinding
 import com.example.keepcodingdragonball.databinding.FragmentHeroListBinding
 import com.example.keepcodingdragonball.domain.model.Hero
 import com.example.keepcodingdragonball.presentation.login.LoginFragmentDirections
+import org.koin.android.ext.android.inject
 
 
 class HeroListFragment : Fragment(), HeroAdapter.HeroAdapterInterface{
 
     private lateinit var binding: FragmentHeroListBinding
-    private val viewModel: HeroListViewModel by viewModels()
+    private val viewModel: HeroListViewModel by inject()
     private lateinit var adapter : HeroAdapter
 
     override fun onCreateView(

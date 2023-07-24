@@ -12,13 +12,14 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.keepcodingdragonball.databinding.FragmentLoginBinding
+import org.koin.android.ext.android.inject
 
 
 class LoginFragment : Fragment() {
 
 
     private lateinit var binding: FragmentLoginBinding
-    private val viewModel: LoginViewModel by viewModels()
+    private val viewModel: LoginViewModel by inject()
 
 
     override fun onCreateView(

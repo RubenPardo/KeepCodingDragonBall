@@ -39,6 +39,9 @@ android {
 
 dependencies {
 
+    def retrofitVersion = '2.9.0'
+    def koin_version = "3.4.2"
+
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
@@ -66,11 +69,19 @@ dependencies {
     testImplementation "org.mockito.kotlin:mockito-kotlin:5.0.0"
     // picaso
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    // koin
+    implementation "io.insert-koin:koin-android:$koin_version"
 
     // OkHttp
     implementation(platform('com.squareup.okhttp3:okhttp-bom:4.10.0'))
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:4.10.0'
+
+    // Networking
+    implementation "com.squareup.retrofit2:retrofit:${ retrofitVersion }"
+    implementation "com.squareup.moshi:moshi-kotlin:1.14.0"
+    implementation "com.squareup.retrofit2:converter-moshi:${ retrofitVersion }"
+    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3"
 
 }

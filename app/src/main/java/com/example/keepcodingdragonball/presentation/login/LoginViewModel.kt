@@ -13,11 +13,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(
+    private val loginUseCase: LoginUseCase,
+    private val authRepository: AuthRepository
+) : ViewModel() {
 
     private val _loginUiState = MutableLiveData<LoginUiState>(LoginUiState.InitState)
     val loginUiState: LiveData<LoginUiState> = _loginUiState
-    private var authRepository: AuthRepository = AuthRepositoryImpl()
 
 
 
@@ -27,10 +29,10 @@ class LoginViewModel : ViewModel() {
             delay(1000)
             val loginDataDO = LoginDataDO(name,password)
             if(checkCredentials(loginDataDO)){
-                if (LoginUseCase().invoke(loginDataDO,saveCredentials)){
+                if (loginUseCase.invoke(loginDataDO,saveCredentials)){
                     _loginUiState.postValue(LoginUiState.Logged)
                 }else{
-                    emitError("Unable to save credentials")
+                    emitError("Unable to login")
                 }
             }else{
                 emitError("Bad credentials")
