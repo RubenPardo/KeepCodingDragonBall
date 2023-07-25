@@ -1,18 +1,9 @@
-package com.example.keepcodingdragonball.data.datasources
+package com.example.keepcodingdragonball.data.datasources.implementations
 
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
-
-
-
-
-
-interface SharedPreferencesService{
-    fun getPrefString(prefName: String, defaultValue: String): String?
-    fun putPrefString(prefName: String, value: String)
-    fun removePrefString(prefName: String)
-}
+import com.example.keepcodingdragonball.data.datasources.interfaces.SharedPreferencesService
 
 class SharedPreferencesServiceImpl : SharedPreferencesService {
 

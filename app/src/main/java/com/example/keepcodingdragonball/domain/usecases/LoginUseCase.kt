@@ -1,12 +1,10 @@
 package com.example.keepcodingdragonball.domain.usecases
 
-import android.content.Context
-import com.example.keepcodingdragonball.data.repositories.AuthRepository
-import com.example.keepcodingdragonball.data.repositories.AuthRepositoryImpl
+import com.example.keepcodingdragonball.data.repositories.interfaces.AuthRepository
 import com.example.keepcodingdragonball.domain.model.LoginDataDO
 import com.example.keepcodingdragonball.domain.model.Response
 
-class LoginUseCase( private val authRepository:AuthRepository) {
+class LoginUseCase( private val authRepository: AuthRepository) {
 
 
     suspend operator fun invoke(

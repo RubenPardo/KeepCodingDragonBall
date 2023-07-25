@@ -1,13 +1,16 @@
 package com.example.keepcodingdragonball.di
 
-import com.example.keepcodingdragonball.data.datasources.AuthService
-import com.example.keepcodingdragonball.data.datasources.DragonBallService
-import com.example.keepcodingdragonball.data.datasources.SharedPreferencesService
-import com.example.keepcodingdragonball.data.datasources.SharedPreferencesServiceImpl
-import com.example.keepcodingdragonball.data.repositories.AuthRepository
+import com.example.keepcodingdragonball.data.datasources.apis.DragonBallApi
+import com.example.keepcodingdragonball.data.datasources.implementations.AuthServiceImpl
+import com.example.keepcodingdragonball.data.datasources.implementations.DragonBallServiceRetrofitImpl
+import com.example.keepcodingdragonball.data.datasources.implementations.SharedPreferencesServiceImpl
+import com.example.keepcodingdragonball.data.datasources.interfaces.AuthService
+import com.example.keepcodingdragonball.data.datasources.interfaces.DragonBallService
+import com.example.keepcodingdragonball.data.datasources.interfaces.SharedPreferencesService
 import com.example.keepcodingdragonball.data.repositories.AuthRepositoryImpl
-import com.example.keepcodingdragonball.data.repositories.DragonBallRepository
 import com.example.keepcodingdragonball.data.repositories.DragonBallRepositoryImpl
+import com.example.keepcodingdragonball.data.repositories.interfaces.AuthRepository
+import com.example.keepcodingdragonball.data.repositories.interfaces.DragonBallRepository
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -21,9 +24,12 @@ val dataModule = module{
     single <DragonBallRepository>{ DragonBallRepositoryImpl(get())  }
 
     single <SharedPreferencesService>{ SharedPreferencesServiceImpl()  }
-    single <AuthService>{ AuthService()  }
-    single <DragonBallService>{ DragonBallService()  }
+    single <AuthService>{ AuthServiceImpl()  }
+    single <DragonBallService>{ DragonBallServiceRetrofitImpl(get())  }
 
+    single<DragonBallApi>{
+        getDragonBallService(get())
+    }
 
 
     single {
@@ -46,4 +52,8 @@ val dataModule = module{
             .addLast(KotlinJsonAdapterFactory())
             .build()
     }
+
+
 }
+
+private fun getDragonBallService(retrofit: Retrofit) = retrofit.create(DragonBallApi::class.java)

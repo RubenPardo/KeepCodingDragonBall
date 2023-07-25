@@ -1,8 +1,8 @@
-package com.example.keepcodingdragonball.data.repositories
+package com.example.keepcodingdragonball.data.repositories.interfaces
 
 import com.example.keepcodingdragonball.domain.model.Hero
 import com.example.keepcodingdragonball.domain.model.Response
 
 interface DragonBallRepository {
-    fun getAllHeroes(name:String, token:String): Response<List<Hero>>
+    suspend fun getAllHeroes(name:String, token:String): Response<List<Hero>>
 }

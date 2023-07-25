@@ -1,27 +1,18 @@
 package com.example.keepcodingdragonball.data.repositories
 
-import android.content.Context
 import android.util.Log
-import com.example.keepcodingdragonball.data.datasources.AuthService
-import com.example.keepcodingdragonball.data.datasources.SharedPreferencesService
-import com.example.keepcodingdragonball.data.datasources.SharedPreferencesServiceImpl
+import com.example.keepcodingdragonball.data.datasources.interfaces.AuthService
+import com.example.keepcodingdragonball.data.datasources.interfaces.SharedPreferencesService
+import com.example.keepcodingdragonball.data.repositories.interfaces.AuthRepository
 import com.example.keepcodingdragonball.domain.model.LoginDataDO
 import com.example.keepcodingdragonball.domain.model.Response
 
-interface AuthRepository {
-    suspend fun saveCredentials(loginDataDO: LoginDataDO):Response<Boolean>
-    suspend fun makeLogin(loginDataDO: LoginDataDO):Response<String>
-    suspend fun getCredentials():Response<LoginDataDO?>
-    suspend fun removeCredentials()
-    suspend fun saveToken(token: String?)
-    suspend fun getToken():Response<String?>
-}
 
 
 class AuthRepositoryImpl(
     private val sharedPreferencesService: SharedPreferencesService,
     private val authService: AuthService
-): AuthRepository{
+): AuthRepository {
 
     private val loginDataKEY = "LOGIN"
     private val tokenDataKEY = "TOKEN"

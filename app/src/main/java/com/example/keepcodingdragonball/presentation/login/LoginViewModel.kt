@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.keepcodingdragonball.data.repositories.AuthRepository
-import com.example.keepcodingdragonball.data.repositories.AuthRepositoryImpl
+import com.example.keepcodingdragonball.data.repositories.interfaces.AuthRepository
 import com.example.keepcodingdragonball.domain.model.LoginDataDO
 import com.example.keepcodingdragonball.domain.model.Response
 import com.example.keepcodingdragonball.domain.usecases.LoginUseCase

@@ -1,13 +1,11 @@
-package com.example.keepcodingdragonball.data.datasources
+package com.example.keepcodingdragonball.data.datasources.implementations
 
-import com.example.keepcodingdragonball.domain.model.LoginDataDO
 import com.example.keepcodingdragonball.domain.model.Response
-import okhttp3.Credentials
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
-class DragonBallService {
+class DragonBallServiceImpl {
 
     fun getHeroes(name: String,token:String): Response<String> {
         val client =  OkHttpClient()
