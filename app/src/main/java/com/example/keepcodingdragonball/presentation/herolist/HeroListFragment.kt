@@ -1,27 +1,22 @@
 package com.example.keepcodingdragonball.presentation.herolist
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.keepcodingdragonball.R
-import com.example.keepcodingdragonball.databinding.ActivityHeroListBinding
 import com.example.keepcodingdragonball.databinding.FragmentHeroListBinding
 import com.example.keepcodingdragonball.domain.model.Hero
-import com.example.keepcodingdragonball.presentation.login.LoginFragmentDirections
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HeroListFragment : Fragment(), HeroAdapter.HeroAdapterInterface{
 
     private lateinit var binding: FragmentHeroListBinding
-    private val viewModel: HeroListViewModel by inject()
+    private val viewModel: HeroListViewModel by viewModel()
     private lateinit var adapter : HeroAdapter
 
     override fun onCreateView(

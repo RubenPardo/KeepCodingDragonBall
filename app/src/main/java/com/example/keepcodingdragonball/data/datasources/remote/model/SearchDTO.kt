@@ -1,4 +1,4 @@
-package com.example.keepcodingdragonball.data.datasources.model
+package com.example.keepcodingdragonball.data.datasources.remote.model
 
 import com.squareup.moshi.Json
 

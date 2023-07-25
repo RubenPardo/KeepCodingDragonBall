@@ -1,31 +1,42 @@
 package com.example.keepcodingdragonball.data.repositories
 
-import com.example.keepcodingdragonball.data.datasources.interfaces.DragonBallService
+import android.util.Log
+import com.example.keepcodingdragonball.data.datasources.local.interfaces.LocalDataSource
+import com.example.keepcodingdragonball.data.datasources.remote.interfaces.RemoteDataSource
 import com.example.keepcodingdragonball.data.mappers.toDomain
 import com.example.keepcodingdragonball.data.repositories.interfaces.DragonBallRepository
 import com.example.keepcodingdragonball.domain.model.Hero
 import com.example.keepcodingdragonball.domain.model.Response
 
 class DragonBallRepositoryImpl(
-    private val dragonBallService: DragonBallService
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource
 ): DragonBallRepository {
 
 
-    override suspend fun getAllHeroes(name:String, token:String): Response<List<Hero>> {
+    override suspend fun getAllHeroes(name:String): Response<List<Hero>> {
         return try {
+            val localData = localDataSource.getHeroList()
 
-            when(val heroesDTO = dragonBallService.getHeroes(name,token)){
-                is Response.Error -> Response.Error("Unable to get heroes")
-                is Response.Success -> {
-                    val heroesDO = heroesDTO.data?.let {
-                        it.map { hero-> hero.toDomain() }
+            if(localData.isNotEmpty()){
+                Log.d("GET --- ", "getAllHeroes: DESDE LOCAL")
+                return Response.Success(localData.map { it.toDomain() })
+            }else{
+                Log.d("GET --- ", "getAllHeroes: DESDE REMOTE")
+                when(val heroesDTO = remoteDataSource.getHeroes(name)){
+                    is Response.Error -> Response.Error("Unable to get heroes")
+                    is Response.Success -> {
+                        val heroesDO = heroesDTO.data?.let {
+                            it.map { hero-> hero.toDomain() }
+                        }
+                        return heroesDO?.let {
+                            Response.Success(it)
+                        } ?: Response.Error("")
+
                     }
-                   return heroesDO?.let {
-                        Response.Success(it)
-                    } ?: Response.Error("")
-
                 }
             }
+
         }catch (e:Exception){
             Response.Error(e.message)
         }

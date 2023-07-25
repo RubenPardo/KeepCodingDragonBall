@@ -1,9 +1,9 @@
-package com.example.keepcodingdragonball.data.datasources.implementations
+package com.example.keepcodingdragonball.data.datasources.remote.implementations
 
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.keepcodingdragonball.data.datasources.interfaces.SharedPreferencesService
+import com.example.keepcodingdragonball.data.datasources.remote.interfaces.SharedPreferencesService
 
 class SharedPreferencesServiceImpl : SharedPreferencesService {
 

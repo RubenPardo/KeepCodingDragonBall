@@ -1,4 +1,4 @@
-package com.example.keepcodingdragonball.data.datasources.interfaces
+package com.example.keepcodingdragonball.data.datasources.remote.interfaces
 
 interface SharedPreferencesService {
     fun getPrefString(prefName: String, defaultValue: String): String?

@@ -2,7 +2,7 @@ package com.example.keepcodingdragonball.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.keepcodingdragonball.data.datasources.implementations.SharedPreferencesServiceImpl
+import com.example.keepcodingdragonball.data.datasources.remote.implementations.SharedPreferencesServiceImpl
 import com.example.keepcodingdragonball.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

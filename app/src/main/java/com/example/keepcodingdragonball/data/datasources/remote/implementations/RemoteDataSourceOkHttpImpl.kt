@@ -1,13 +1,15 @@
-package com.example.keepcodingdragonball.data.datasources.implementations
+package com.example.keepcodingdragonball.data.datasources.remote.implementations
 
+import com.example.keepcodingdragonball.data.datasources.remote.interfaces.RemoteDataSource
+import com.example.keepcodingdragonball.data.datasources.remote.model.HeroDTO
 import com.example.keepcodingdragonball.domain.model.Response
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
-class DragonBallServiceImpl {
+class RemoteDataSourceOkHttpImpl : RemoteDataSource {
 
-    fun getHeroes(name: String,token:String): Response<String> {
+    override suspend fun getHeroes(name: String): Response<List<HeroDTO>> {
         val client =  OkHttpClient()
         val url = "${BASE_URL}heros/all"
 
@@ -18,13 +20,14 @@ class DragonBallServiceImpl {
         val request = Request.Builder()
             .url(url)
             .post(formBody)
-            .addHeader("Authorization","Bearer $token")
+            //.addHeader("Authorization","Bearer $token")
             .build()
         val call = client.newCall(request)
         val response:okhttp3.Response = call.execute()
         return if(response.isSuccessful){
             response.body?.let {
-                Response.Success(response.body!!.string())
+               // Response.Success(response.body!!.string())
+                Response.Success(listOf())
             } ?: Response.Error(response.message)
         }else{
             Response.Error(response.message)

@@ -1,6 +1,6 @@
-package com.example.keepcodingdragonball.data.datasources.implementations
+package com.example.keepcodingdragonball.data.datasources.remote.implementations
 
-import com.example.keepcodingdragonball.data.datasources.interfaces.AuthService
+import com.example.keepcodingdragonball.data.datasources.remote.interfaces.AuthService
 import com.example.keepcodingdragonball.domain.model.LoginDataDO
 import com.example.keepcodingdragonball.domain.model.Response
 import okhttp3.Credentials
@@ -10,7 +10,7 @@ import okhttp3.Request
 
 const val BASE_URL = "https://dragonball.keepcoding.education/api/"
 
-class AuthServiceImpl: AuthService{
+class AuthServiceImpl: AuthService {
 
     /**
      * Returns de Acces Token

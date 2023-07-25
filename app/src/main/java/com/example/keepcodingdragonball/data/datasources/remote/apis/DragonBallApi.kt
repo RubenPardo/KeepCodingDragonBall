@@ -1,7 +1,7 @@
-package com.example.keepcodingdragonball.data.datasources.apis
+package com.example.keepcodingdragonball.data.datasources.remote.apis
 
-import com.example.keepcodingdragonball.data.datasources.model.HeroDTO
-import com.example.keepcodingdragonball.data.datasources.model.SearchDto
+import com.example.keepcodingdragonball.data.datasources.remote.model.HeroDTO
+import com.example.keepcodingdragonball.data.datasources.remote.model.SearchDto
 import com.example.keepcodingdragonball.domain.model.Response
 import retrofit2.http.Body
 import retrofit2.http.Headers

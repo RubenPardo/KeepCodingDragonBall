@@ -1,4 +1,4 @@
-package com.example.keepcodingdragonball.data.datasources.interfaces
+package com.example.keepcodingdragonball.data.datasources.remote.interfaces
 
 import com.example.keepcodingdragonball.domain.model.LoginDataDO
 import com.example.keepcodingdragonball.domain.model.Response

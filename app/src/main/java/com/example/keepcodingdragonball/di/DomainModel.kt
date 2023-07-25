@@ -6,7 +6,7 @@ import org.koin.dsl.module
 
 val domainModel = module{
 
-    factory <GetAllHeroesUseCase>{GetAllHeroesUseCase(get(),get())}
+    factory <GetAllHeroesUseCase>{GetAllHeroesUseCase(get())}
     factory <LoginUseCase>{LoginUseCase(get())}
 
 

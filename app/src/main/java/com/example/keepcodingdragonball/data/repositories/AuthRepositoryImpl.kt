@@ -1,8 +1,8 @@
 package com.example.keepcodingdragonball.data.repositories
 
 import android.util.Log
-import com.example.keepcodingdragonball.data.datasources.interfaces.AuthService
-import com.example.keepcodingdragonball.data.datasources.interfaces.SharedPreferencesService
+import com.example.keepcodingdragonball.data.datasources.remote.interfaces.AuthService
+import com.example.keepcodingdragonball.data.datasources.remote.interfaces.SharedPreferencesService
 import com.example.keepcodingdragonball.data.repositories.interfaces.AuthRepository
 import com.example.keepcodingdragonball.domain.model.LoginDataDO
 import com.example.keepcodingdragonball.domain.model.Response
