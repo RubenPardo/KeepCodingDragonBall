@@ -46,7 +46,7 @@ class HeroListFragment : Fragment(), HeroAdapter.HeroAdapterInterface{
 
     override fun onItemClick(hero: Hero) {
         Toast.makeText(context,"Se pulso el heroe: ${hero.name}", Toast.LENGTH_LONG).show()
-        val directions = HeroListFragmentDirections.navigateToHeroDetails(hero)
+        val directions = HeroListFragmentDirections.navigateToHeroDetails(hero.id)
         findNavController().navigate(directions)
 
     }

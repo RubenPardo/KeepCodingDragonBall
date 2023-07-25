@@ -20,3 +20,11 @@ fun HeroLocal.toDomain() = Hero(
     name = name ?: "",
     favorite = favorite ?: false,
 )
+
+fun HeroDTO.toLocal() = HeroLocal(
+    id = id ?: "",
+    photoUrl = photo ?: "",
+    description = description ?: "",
+    name = name ?: "",
+    favorite = favorite ?: false,
+)

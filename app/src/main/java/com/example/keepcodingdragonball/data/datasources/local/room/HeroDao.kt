@@ -25,4 +25,6 @@ interface HeroDao {
 
     @Delete
     suspend fun delete(model: HeroLocal)
+    @Query("SELECT * FROM SuperHeroTable WHERE id = :id")
+    suspend fun getById(id: String): HeroLocal
 }

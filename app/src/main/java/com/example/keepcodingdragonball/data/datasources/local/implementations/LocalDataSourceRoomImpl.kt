@@ -11,4 +11,7 @@ class LocalDataSourceRoomImpl (
     override suspend fun insertHeroList(heroList: List<HeroLocal>) = heroDao.insertAll(heroList)
 
     override suspend fun getHeroList(): List<HeroLocal> = heroDao.getAll()
+    override suspend fun getHeroById(id: String): HeroLocal{
+        return heroDao.getById(id)
+    }
 }

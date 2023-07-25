@@ -31,8 +31,8 @@
         android:label="Hero detail"
         tools:layout="@layout/fragment_hero_details">
         <argument
-            android:name="hero"
-            app:argType="com.example.keepcodingdragonball.domain.model.Hero" />
+            android:name="hero_id"
+            app:argType="string" />
     </fragment>
 
 </navigation>

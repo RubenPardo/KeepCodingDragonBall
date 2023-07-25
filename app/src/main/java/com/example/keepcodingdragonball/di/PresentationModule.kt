@@ -1,5 +1,6 @@
 package com.example.keepcodingdragonball.di
 
+import com.example.keepcodingdragonball.presentation.herodetails.HeroDetailsViewModel
 import com.example.keepcodingdragonball.presentation.herolist.HeroListViewModel
 import com.example.keepcodingdragonball.presentation.login.LoginViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -11,4 +12,6 @@ val presentationModule = module{
     viewModelOf(::LoginViewModel)
     viewModel{ HeroListViewModel(get()) }
     viewModelOf(::HeroListViewModel)
+    viewModel{ HeroDetailsViewModel(get()) }
+    viewModelOf(::HeroDetailsViewModel)
 }
