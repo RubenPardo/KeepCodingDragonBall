@@ -7,6 +7,7 @@ import com.example.keepcodingdragonball.data.mappers.toDomain
 import com.example.keepcodingdragonball.data.mappers.toLocal
 import com.example.keepcodingdragonball.data.repositories.interfaces.DragonBallRepository
 import com.example.keepcodingdragonball.domain.model.Hero
+import com.example.keepcodingdragonball.domain.model.LocationModel
 import com.example.keepcodingdragonball.domain.model.Response
 
 class DragonBallRepositoryImpl(
@@ -52,5 +53,6 @@ class DragonBallRepositoryImpl(
     }
 
     override suspend fun updateHero(hero:Hero): Boolean = localDataSource.updateHero(hero.toLocal())
+    override suspend fun getHeroLocations(id: String): List<LocationModel> = remoteDataSource.getLocationsHero(id).map{it.toDomain()}
 
 }

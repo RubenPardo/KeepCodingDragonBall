@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.keepcodingdragonball.databinding.FragmentHeroDetailsBinding
 import com.example.keepcodingdragonball.domain.model.Hero
+import com.example.keepcodingdragonball.domain.model.LocationModel
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -41,7 +42,7 @@ class HeroDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setObservable()
         setListeners()
-        viewModel.getHeroById(heroId)
+        viewModel.getData(heroId)
     }
 
     private fun setListeners() {
@@ -50,6 +51,12 @@ class HeroDetailsFragment : Fragment() {
 
     private fun setObservable() {
         viewModel.heroLiveData.observe(this.viewLifecycleOwner,this::setUpViews)
+        viewModel.heroLastLocationLiveData.observe(this.viewLifecycleOwner,this::setUpLocation)
+    }
+
+    private fun setUpLocation(locationModel: LocationModel) = binding.run {
+        tvLatitude.text = locationModel.latitude
+        tvLongitude.text = locationModel.longitude
     }
 
     private fun setUpViews(hero:Hero) {

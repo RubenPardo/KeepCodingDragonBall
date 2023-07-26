@@ -2,6 +2,7 @@ package com.example.keepcodingdragonball.data.datasources.remote.implementations
 
 import com.example.keepcodingdragonball.data.datasources.remote.interfaces.RemoteDataSource
 import com.example.keepcodingdragonball.data.datasources.remote.model.HeroDTO
+import com.example.keepcodingdragonball.data.datasources.remote.model.LocationDto
 import com.example.keepcodingdragonball.domain.model.Response
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -32,6 +33,10 @@ class RemoteDataSourceOkHttpImpl : RemoteDataSource {
         }else{
             Response.Error(response.message)
         }
+    }
+
+    override suspend fun getLocationsHero(id: String): List<LocationDto> {
+        return listOf()
     }
 
 }

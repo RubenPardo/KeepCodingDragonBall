@@ -1,6 +1,9 @@
 package com.example.keepcodingdragonball.data.datasources.remote.apis
 
 import com.example.keepcodingdragonball.data.datasources.remote.model.HeroDTO
+import com.example.keepcodingdragonball.data.datasources.remote.model.HeroIdDto
+import com.example.keepcodingdragonball.data.datasources.remote.model.IdDto
+import com.example.keepcodingdragonball.data.datasources.remote.model.LocationDto
 import com.example.keepcodingdragonball.data.datasources.remote.model.SearchDto
 import com.example.keepcodingdragonball.domain.model.Response
 import retrofit2.http.Body
@@ -12,4 +15,7 @@ interface DragonBallApi{
     @POST("heros/all")
     @Headers("Authorization: Bearer $TOKEN")
     suspend fun getHeroes(@Body name: SearchDto): List<HeroDTO>
+    @POST("heros/locations")
+    @Headers("Authorization: Bearer $TOKEN")
+    suspend fun getLocationsHero(@Body idDto: IdDto): List<LocationDto>
 }
