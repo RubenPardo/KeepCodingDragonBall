@@ -12,6 +12,6 @@ val presentationModule = module{
     viewModelOf(::LoginViewModel)
     viewModel{ HeroListViewModel(get()) }
     viewModelOf(::HeroListViewModel)
-    viewModel{ HeroDetailsViewModel(get(), get(),get()) }
+    viewModel{ HeroDetailsViewModel(get(),get(), get(),get(),get()) }
     viewModelOf(::HeroDetailsViewModel)
 }

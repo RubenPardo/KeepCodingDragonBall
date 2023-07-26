@@ -1,6 +1,7 @@
 package com.example.keepcodingdragonball.di
 
 import com.example.keepcodingdragonball.domain.usecases.GetAllHeroesUseCase
+import com.example.keepcodingdragonball.domain.usecases.GetDistanceFroHeroUseCase
 import com.example.keepcodingdragonball.domain.usecases.GetHeroDetailByIdUseCase
 import com.example.keepcodingdragonball.domain.usecases.GetHeroLasLocationUseCase
 import com.example.keepcodingdragonball.domain.usecases.LoginUseCase
@@ -14,6 +15,7 @@ val domainModel = module{
     factory {GetHeroDetailByIdUseCase(get())}
     factory {SetHeroFavByIdUseCase(get())}
     factory {GetHeroLasLocationUseCase(get())}
+    factory {GetDistanceFroHeroUseCase()}
 
 
 }

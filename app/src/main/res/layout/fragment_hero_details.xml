@@ -37,32 +37,6 @@
                 tools:text="NOMBRE" />
 
             <TextView
-                android:id="@+id/tvLatitude"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="16dp"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toStartOf="@+id/tvLongitude"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvName"
-                tools:text="Latitude" />
-
-            <TextView
-                android:id="@+id/tvLongitude"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="16dp"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tvLatitude"
-                app:layout_constraintTop_toBottomOf="@+id/tvName"
-                tools:text="Longitude" />
-
-            <TextView
                 android:id="@+id/tvDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,7 +45,7 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvLatitude"
+                app:layout_constraintTop_toBottomOf="@+id/tvDistance"
                 tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
 
             <ImageView
@@ -83,6 +57,17 @@
                 android:src="@android:drawable/btn_star_big_off"
                 app:layout_constraintBottom_toBottomOf="@+id/ivHero"
                 app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:padding="16dp"
+                android:textSize="24sp"
+                android:id="@+id/tvDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvName"
+                tools:text="Metros" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </FrameLayout>

@@ -3,4 +3,5 @@
     <string name="seleccione_tu_heroe">Seleccione tu Heroe</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="user_location">La distancia hasta %1$s es %2$s km</string>
 </resources>
