@@ -1,12 +1,11 @@
 package com.example.keepcodingdragonball.presentation.herodetails
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.keepcodingdragonball.core.serializable
 import com.example.keepcodingdragonball.databinding.FragmentHeroDetailsBinding
 import com.example.keepcodingdragonball.domain.model.Hero
 import com.squareup.picasso.Picasso
@@ -41,7 +40,12 @@ class HeroDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setObservable()
+        setListeners()
         viewModel.getHeroById(heroId)
+    }
+
+    private fun setListeners() {
+        binding.ivFav.setOnClickListener { viewModel.changeFavHeroById() }
     }
 
     private fun setObservable() {
@@ -52,5 +56,7 @@ class HeroDetailsFragment : Fragment() {
         binding.tvName.text = hero.name
         binding.tvDescription.text = hero.description
         Picasso.with(context).load(hero.photo).into(binding.ivHero)
+        binding.ivFav.setImageResource(if(hero.favorite) android.R.drawable.btn_star_big_on else android.R.drawable.btn_star_big_off)
+
     }
 }

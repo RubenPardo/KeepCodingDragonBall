@@ -51,4 +51,6 @@ class DragonBallRepositoryImpl(
         return localDataSource.getHeroById(id).toDomain()
     }
 
+    override suspend fun updateHero(hero:Hero): Boolean = localDataSource.updateHero(hero.toLocal())
+
 }

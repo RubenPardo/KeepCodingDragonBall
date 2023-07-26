@@ -5,22 +5,37 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.keepcodingdragonball.domain.model.Hero
+import com.example.keepcodingdragonball.domain.model.Response
 import com.example.keepcodingdragonball.domain.usecases.GetHeroDetailByIdUseCase
+import com.example.keepcodingdragonball.domain.usecases.SetHeroFavByIdUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HeroDetailsViewModel(
-    private val getHeroDetailByIdUseCase: GetHeroDetailByIdUseCase
+    private val getHeroDetailByIdUseCase: GetHeroDetailByIdUseCase,
+    private val setHeroFavByIdUseCase: SetHeroFavByIdUseCase
 ) : ViewModel() {
 
     private val _heroLiveData = MutableLiveData<Hero>()
     val heroLiveData: LiveData<Hero> = _heroLiveData
 
+    private lateinit var heroModel:Hero
 
     fun getHeroById(id:String){
         viewModelScope.launch (Dispatchers.IO){
             val result = getHeroDetailByIdUseCase.invoke(id)
+            heroModel = result
             _heroLiveData.postValue(result)
+        }
+    }
+
+    fun changeFavHeroById() = viewModelScope.launch (Dispatchers.IO){
+        when(val result = setHeroFavByIdUseCase.invoke(heroModel,!heroModel.favorite)){
+            is Response.Error -> {}
+            is Response.Success -> {
+                heroModel = result.data!!
+                _heroLiveData.postValue(heroModel)
+            }
         }
     }
 

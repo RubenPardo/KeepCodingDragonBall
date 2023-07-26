@@ -14,4 +14,8 @@ class LocalDataSourceRoomImpl (
     override suspend fun getHeroById(id: String): HeroLocal{
         return heroDao.getById(id)
     }
+
+    override suspend fun updateHero(hero: HeroLocal): Boolean {
+        return heroDao.updateHero(hero) == 1
+    }
 }
